@@ -23,12 +23,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/api/hello").permitAll()
+                        .requestMatchers("/api/hello", "/api/auth/register").permitAll()
                         .anyRequest().authenticated()
-                )
-                .formLogin((form) -> form
-                        .loginPage("/login")
-                        .permitAll()
                 )
                 .logout((logout) -> logout.permitAll())
                 .addFilterAfter(jwtFilter, UsernamePasswordAuthenticationFilter.class);

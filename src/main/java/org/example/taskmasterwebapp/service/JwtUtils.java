@@ -20,11 +20,16 @@ public class JwtUtils {
         return jwtInfoToken;
     }
 
+//    private static Set<UserRole> getRoles(Claims claims) {
+//        final List<String> roles = claims.get("roles", List.class);
+//        return roles.stream()
+//                .map(UserRole::new)
+//                .collect(Collectors.toSet());
+//    }
+
     private static Set<UserRole> getRoles(Claims claims) {
-        final List<String> roles = claims.get("roles", List.class);
-        return roles.stream()
-                .map(UserRole::new)
-                .collect(Collectors.toSet());
+        final Set<UserRole> roles = (Set<UserRole>) claims.get("roles", Set.class);
+        return roles;
     }
 
 }

@@ -69,7 +69,7 @@ public class JwtProvider {
     private boolean validateToken(@NonNull String token, @NonNull Key secret) {
 
         try {
-            Jwts.parserBuilder()
+            Jwts.parserBuilder()                              //TODO: parserBuider() is deprecated
                     .setSigningKey(secret)
                     .build()
                     .parseClaimsJws(token);
