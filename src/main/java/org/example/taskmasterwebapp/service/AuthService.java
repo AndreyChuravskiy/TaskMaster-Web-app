@@ -86,8 +86,10 @@ public class AuthService {
             throw new UserAlreadyExistsException("A user with the same username or email already exists.");
         }
 
+        List <String> roles = registerRequest.getUserRoles();
+
         userService.createUser(registerRequest.getUsername(), registerRequest.getPassword(),
-                String.valueOf(registerRequest.getUserRoles())); //TODO: it might be mistake
+                roles.toArray(new String[0]));
         JwtRequest loginRequest = new JwtRequest(registerRequest.getUsername(), registerRequest.getPassword());
 
         return login(loginRequest);

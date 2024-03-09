@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -62,10 +63,12 @@ public class User {
         if (roles.isEmpty()) {
             return Collections.emptySet();
         }
-        String roleName = roles.iterator().next().getName();
-        return Collections.singleton(roleName);
+        Set<String> setRole = new HashSet<>();
+        for (UserRole role: roles) {
+            setRole.add(role.getName());
+        }
+        return setRole;
     }
-
 
     public void setRoles(Set<UserRole> roles) {
         this.roles = roles;

@@ -1,8 +1,6 @@
 package org.example.taskmasterwebapp.config;
 
 import lombok.RequiredArgsConstructor;
-import org.example.taskmasterwebapp.domain.User;
-//import org.example.taskmasterwebapp.filter.JwtFilter;
 import org.example.taskmasterwebapp.filter.JwtFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,7 +8,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -28,7 +25,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/api/hello", "/api/auth/register", "api/auth/login").permitAll()
+                        .requestMatchers("/api/auth/register", "api/auth/login").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
