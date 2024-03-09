@@ -3,7 +3,9 @@ package org.example.taskmasterwebapp.controller;
 import lombok.RequiredArgsConstructor;
 import org.example.taskmasterwebapp.dto.JwtRequest;
 import org.example.taskmasterwebapp.dto.JwtResponse;
+import org.example.taskmasterwebapp.dto.RegisterRequest;
 import org.example.taskmasterwebapp.service.AuthService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,16 +17,16 @@ public class AuthController {
 
     private final AuthService authService;
 
-    @PostMapping("login")
-    public String login(@RequestBody JwtRequest authRequest) {
+    @PostMapping("/login")
+    public ResponseEntity<JwtResponse> login(@RequestBody JwtRequest authRequest) {
             final JwtResponse token = authService.login(authRequest);
-            return token.getAccessToken() + token.getRefreshToken();
+            return ResponseEntity.ok(token);
     }
 
-    @GetMapping("register")
-    public String register() {
-        //final JwtResponse token = authService.register(username, password, userRoles);
-        return "token.getAccessToken() + token.getRefreshToken()";
+    @PostMapping("/register")
+    public ResponseEntity<JwtResponse> register(@RequestBody RegisterRequest registerRequest) {
+        final JwtResponse token = authService.register(registerRequest);
+        return ResponseEntity.ok(token);
     }
 
 }

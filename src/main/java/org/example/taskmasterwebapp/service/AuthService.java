@@ -7,6 +7,7 @@ import org.example.taskmasterwebapp.domain.User;
 import org.example.taskmasterwebapp.dto.JwtAuthentication;
 import org.example.taskmasterwebapp.dto.JwtRequest;
 import org.example.taskmasterwebapp.dto.JwtResponse;
+import org.example.taskmasterwebapp.dto.RegisterRequest;
 import org.example.taskmasterwebapp.exception.AuthException;
 import org.example.taskmasterwebapp.exception.UserAlreadyExistsException;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -80,13 +81,14 @@ public class AuthService {
         return (JwtAuthentication) SecurityContextHolder.getContext().getAuthentication();
     }
 
-    public JwtResponse register(String username, String password, List<String> userRoles) {
-        if (userService.findUserByUsername(username).isPresent()) {
+    public JwtResponse register(RegisterRequest registerRequest) {
+        if (userService.findUserByUsername(registerRequest.getUsername()).isPresent()) {
             throw new UserAlreadyExistsException("A user with the same username or email already exists.");
         }
 
-        userService.createUser(username, password, String.valueOf(userRoles)); //TODO: it might be mistake
-        JwtRequest loginRequest = new JwtRequest(username, password);
+        userService.createUser(registerRequest.getUsername(), registerRequest.getPassword(),
+                String.valueOf(registerRequest.getUserRoles())); //TODO: it might be mistake
+        JwtRequest loginRequest = new JwtRequest(registerRequest.getUsername(), registerRequest.getPassword());
 
         return login(loginRequest);
     }
