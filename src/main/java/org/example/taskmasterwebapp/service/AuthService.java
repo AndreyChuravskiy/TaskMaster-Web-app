@@ -89,7 +89,7 @@ public class AuthService {
         List <String> roles = registerRequest.getUserRoles();
 
         userService.createUser(registerRequest.getUsername(), registerRequest.getPassword(),
-                roles.toArray(new String[0]));
+                roles.toArray(new String[0]));  //TODO: cheeeeck
         JwtRequest loginRequest = new JwtRequest(registerRequest.getUsername(), registerRequest.getPassword());
 
         return login(loginRequest);

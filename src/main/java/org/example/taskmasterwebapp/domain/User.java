@@ -21,10 +21,10 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private long id;
 
     private String username;
+
     @JsonIgnore
     private String password;
 
@@ -64,7 +64,7 @@ public class User {
             return Collections.emptySet();
         }
         Set<String> setRole = new HashSet<>();
-        for (UserRole role: roles) {
+        for (UserRole role : roles) {
             setRole.add(role.getName());
         }
         return setRole;
