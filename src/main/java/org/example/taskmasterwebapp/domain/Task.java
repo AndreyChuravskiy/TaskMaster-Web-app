@@ -24,9 +24,11 @@ public class Task {
 
     private String executorName;
 
+    private boolean completed = false;
+
     public Task(String title, String description, String executorName) {
         this.title = title;
-        this.description = title;
-        this.executorName = title;
+        this.description = description;
+        this.executorName = executorName;
     }
 }
