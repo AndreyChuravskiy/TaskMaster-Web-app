@@ -40,12 +40,14 @@ public class TaskService {
         taskRepository.deleteById(id);
     }
 
-    public void completeTask(Long id) {
-        Optional<Task> optionalTask = taskRepository.findById(id);
-        if (optionalTask.isPresent()) {
-            Task task = optionalTask.get();
-             task.setCompleted(true);
-             taskRepository.save(task);
-        } else throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Quiz not found");
+    public Task markTaskAsComplete(Task task) {
+        task.setCompleted(true);
+        return taskRepository.save(task);
     }
+
+    public Task markTaskAsIncomplete(Task task) {
+        task.setCompleted(false);
+        return taskRepository.save(task);
+    }
+
 }

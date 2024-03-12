@@ -4,15 +4,14 @@ import lombok.RequiredArgsConstructor;
 import org.example.taskmasterwebapp.domain.Task;
 import org.example.taskmasterwebapp.service.AuthService;
 import org.example.taskmasterwebapp.service.TaskService;
+import org.hibernate.engine.spi.CollectionEntry;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -29,21 +28,49 @@ public class TaskExecutorController {
         Optional<Task> optionalTask = taskService.findTaskById(id);
         if (optionalTask.isPresent()) {
             Task task = optionalTask.get();
-            if (task.getExecutorName().equals(authService.getAuthInfo().getUsername())) {
+            if (task.getExecutorName().equals(authService.getAuthInfo().getPrincipal())) {
                 return ResponseEntity.ok(task);
             } else
                 throw new ResponseStatusException(HttpStatus.FORBIDDEN,
                         "Executor attempts to access an inaccessible task.");
         } else
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Question not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Task not found");
     }
 
-    public String markAsComplete() {
-        return "ok";
+    @PostMapping("/tasks/{id}/mark-as-complete")
+    public ResponseEntity<Task> markTaskAsComplete(@PathVariable Long id) {
+        Optional<Task> optionalTask = taskService.findTaskById(id);
+        if (optionalTask.isPresent()) {
+            Task task = optionalTask.get();
+            String username = (String) authService.getAuthInfo().getPrincipal();
+            if (username.equals(task.getExecutorName())) {
+                return ResponseEntity.ok(taskService.markTaskAsComplete(task));
+            } else
+                throw new ResponseStatusException(HttpStatus.FORBIDDEN,
+                        "Executor attempts to access an inaccessible task.");
+        } else
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Task not found");
     }
 
-    public String getAllTasks() {
-        return "ok";
+    @PostMapping("/tasks/{id}/mark-as-incomplete")
+    public ResponseEntity<Task> markTaskAsIncomplete(@PathVariable Long id) {
+        Optional<Task> optionalTask = taskService.findTaskById(id);
+        if (optionalTask.isPresent()) {
+            Task task = optionalTask.get();
+            String username = (String) authService.getAuthInfo().getPrincipal();
+            if (username.equals(task.getExecutorName())) {
+                return ResponseEntity.ok(taskService.markTaskAsIncomplete(task));
+            } else
+                throw new ResponseStatusException(HttpStatus.FORBIDDEN,
+                        "Executor attempts to access an inaccessible task.");
+        } else
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Task not found");
+    }
+
+    @GetMapping("/tasks/get-all")
+    public ResponseEntity<List<Task>> getAllTasks() {
+        String username = (String) authService.getAuthInfo().getPrincipal();
+        return ResponseEntity.ok(taskService.findAllTasksByExecutorName(username));
     }
 
 }

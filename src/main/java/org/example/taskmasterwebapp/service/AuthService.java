@@ -10,6 +10,7 @@ import org.example.taskmasterwebapp.dto.JwtResponse;
 import org.example.taskmasterwebapp.dto.RegisterRequest;
 import org.example.taskmasterwebapp.exception.AuthException;
 import org.example.taskmasterwebapp.exception.UserAlreadyExistsException;
+import org.example.taskmasterwebapp.repository.RefreshStorageRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +24,9 @@ public class AuthService {
 
     private final UserService userService;
 
-    private final Map<String, String> refreshStorage = new HashMap<>(); //TODO: database
+    private final RefreshStorageUtils refreshStorageUtils;
+
+    //private final Map<String, String> refreshStorage = new HashMap<>(); //TODO: database
 
     private final JwtProvider jwtProvider;
 
@@ -34,7 +37,7 @@ public class AuthService {
         if (user.getPassword().equals(authRequest.getPassword())) {
             final String accessToken = jwtProvider.generateAccessToken(user);
             final String refreshToken = jwtProvider.generateRefreshToken(user);
-            refreshStorage.put(user.getUsername(), refreshToken);
+            refreshStorageUtils.put(user.getUsername(), refreshToken);
             return new JwtResponse(accessToken, refreshToken);
         } else {
             throw new AuthException("Wrong password");
@@ -45,7 +48,7 @@ public class AuthService {
         if (jwtProvider.validateRefreshToken(refreshToken)) {
             final Claims claims = jwtProvider.getRefreshClaims(refreshToken);
             final String username = claims.getSubject();
-            final String saveRefreshToken = refreshStorage.get(username);
+            final String saveRefreshToken = refreshStorageUtils.get(username);
 
             if (saveRefreshToken != null && saveRefreshToken.equals(refreshToken)) {
 
@@ -55,7 +58,7 @@ public class AuthService {
                 return new JwtResponse(accessToken, null);
             }
         }
-        return new JwtResponse(null, null);
+        throw new AuthException("Invalid jwt token");
     }
 
     public JwtResponse refresh(@NonNull String refreshToken) {
@@ -63,14 +66,14 @@ public class AuthService {
 
             final Claims claims = jwtProvider.getRefreshClaims(refreshToken);
             final String username = claims.getSubject();
-            final String saveRefreshToken = refreshStorage.get(username);
+            final String saveRefreshToken = refreshStorageUtils.get(username);
 
             if (saveRefreshToken != null && saveRefreshToken.equals(refreshToken)) {
                 final User user = userService.findUserByUsername(username)
                         .orElseThrow(() -> new AuthException("User not found"));
                 final String accessToken = jwtProvider.generateAccessToken(user);
                 final String newRefreshToken = jwtProvider.generateRefreshToken(user);
-                refreshStorage.put(user.getUsername(), newRefreshToken);
+                refreshStorageUtils.put(user.getUsername(), newRefreshToken);
                 return new JwtResponse(accessToken, newRefreshToken);
             }
         }

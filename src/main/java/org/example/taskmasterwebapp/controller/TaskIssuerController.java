@@ -9,9 +9,11 @@ import org.example.taskmasterwebapp.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -48,4 +50,17 @@ public class TaskIssuerController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Question not found");
     }
 
+    @GetMapping("/tasks/get-all")
+    public ResponseEntity<List<Task>> getAllTasks() {
+        return ResponseEntity.ok(taskService.findAllTasks());
+    }
+
+    @PostMapping("/tasks/{id}/delete")
+    public ResponseEntity<String> deleteTask(@PathVariable Long id) {
+        if (taskService.findTaskById(id).isPresent()) {
+            taskService.deleteTask(id);
+            return ResponseEntity.ok("Task was deleted");
+        } else
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Task not found");
+    }
 }
