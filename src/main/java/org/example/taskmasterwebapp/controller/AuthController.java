@@ -5,9 +5,13 @@ import org.example.taskmasterwebapp.dto.JwtRequest;
 import org.example.taskmasterwebapp.dto.JwtResponse;
 import org.example.taskmasterwebapp.dto.RefreshJwtRequest;
 import org.example.taskmasterwebapp.dto.RegisterRequest;
+import org.example.taskmasterwebapp.exception.AuthException;
 import org.example.taskmasterwebapp.service.AuthService;
+import org.springframework.boot.actuate.autoconfigure.observation.ObservationProperties;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -20,8 +24,8 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<JwtResponse> login(@RequestBody JwtRequest authRequest) {
-            final JwtResponse token = authService.login(authRequest);
-            return ResponseEntity.ok(token);
+        final JwtResponse token = authService.login(authRequest);
+        return ResponseEntity.ok(token);
     }
 
     @PostMapping("/register")

@@ -30,7 +30,7 @@ public class AuthService {
 
     private final JwtProvider jwtProvider;
 
-    public JwtResponse login(@NonNull JwtRequest authRequest) {
+    public JwtResponse login(@NonNull JwtRequest authRequest){
         final User user = userService.findUserByUsername(authRequest.getLogin())
                 .orElseThrow(() -> new AuthException("User not found"));
 

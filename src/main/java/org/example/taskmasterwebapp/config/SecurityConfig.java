@@ -28,10 +28,6 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/register", "api/auth/login").permitAll()
                         .anyRequest().authenticated()
                 )
-                .formLogin((form) -> form
-                        .loginPage("/login")
-                        .permitAll()
-                )
                 .logout((logout) -> logout.permitAll())
                 .addFilterAfter(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 ;
