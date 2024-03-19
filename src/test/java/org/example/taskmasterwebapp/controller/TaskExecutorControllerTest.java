@@ -7,6 +7,7 @@ import org.example.taskmasterwebapp.dto.JwtRequest;
 import org.example.taskmasterwebapp.filter.JwtFilter;
 import org.example.taskmasterwebapp.service.AuthService;
 import org.example.taskmasterwebapp.service.TaskService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -43,16 +44,20 @@ public class TaskExecutorControllerTest {
     @Autowired
     MockMvc mockMvc;
 
+    private JwtAuthentication authInfo;
+
+    @BeforeEach
+    void setUp() {
+        authInfo = new JwtAuthentication();
+        authInfo.setUsername("andrey");
+        authInfo.setAuthenticated(true);
+        authInfo.setRoles(Set.of(new UserRole("EXECUTOR")));
+    }
     @Test
     void getTaskById() throws Exception{
         Task task = new Task("test", "Testing tests", "andrey");
         task.setId(4L);
         Optional<Task> optionalTask = Optional.of(task);
-
-        JwtAuthentication authInfo = new JwtAuthentication();
-        authInfo.setUsername("andrey");
-        authInfo.setAuthenticated(true);
-        authInfo.setRoles(Set.of(new UserRole("EXECUTOR")));
 
         when(taskService.findTaskById(any(Long.class))).thenReturn(optionalTask);
         when(authService.getAuthInfo()).thenReturn(authInfo);
@@ -74,11 +79,6 @@ public class TaskExecutorControllerTest {
         Task task = new Task("test", "Testing tests", "andrey");
         task.setId(5L);
         Optional<Task> optionalTask = Optional.of(task);
-
-        JwtAuthentication authInfo = new JwtAuthentication();
-        authInfo.setUsername("andrey");
-        authInfo.setAuthenticated(true);
-        authInfo.setRoles(Set.of(new UserRole("EXECUTOR")));
 
         when(taskService.findTaskById(any(Long.class))).thenReturn(optionalTask);
         task.setCompleted(true);
@@ -105,11 +105,6 @@ public class TaskExecutorControllerTest {
         task.setId(5L);
         task.setCompleted(true);
         Optional<Task> optionalTask = Optional.of(task);
-
-        JwtAuthentication authInfo = new JwtAuthentication();
-        authInfo.setUsername("andrey");
-        authInfo.setAuthenticated(true);
-        authInfo.setRoles(Set.of(new UserRole("EXECUTOR")));
 
         when(taskService.findTaskById(any(Long.class))).thenReturn(optionalTask);
         task.setCompleted(false);
@@ -140,11 +135,6 @@ public class TaskExecutorControllerTest {
         task5.setId(5L);
         task1.setCompleted(true);
         List<Task> taskList = List.of(task1, task3, task5);
-
-        JwtAuthentication authInfo = new JwtAuthentication();
-        authInfo.setUsername("andrey");
-        authInfo.setAuthenticated(true);
-        authInfo.setRoles(Set.of(new UserRole("EXECUTOR")));
 
         when(authService.getAuthInfo()).thenReturn(authInfo);
         when(taskService.findAllTasksByExecutorName(any(String.class))).thenReturn(taskList);
