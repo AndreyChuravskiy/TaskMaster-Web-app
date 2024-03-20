@@ -25,9 +25,7 @@ public class AuthService {
     private final UserService userService;
 
     private final RefreshStorageUtils refreshStorageUtils;
-
-    //private final Map<String, String> refreshStorage = new HashMap<>(); //TODO: database
-
+    
     private final JwtProvider jwtProvider;
 
     public JwtResponse login(@NonNull JwtRequest authRequest){
