@@ -1,0 +1,359 @@
+{
+	"info": {
+		"_postman_id": "1da8447b-b94a-4b5c-b8c7-d10cc75ddbb3",
+		"name": "TaskMaster-Web-app",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33248354"
+	},
+	"item": [
+		{
+			"name": "hello controller",
+			"item": [
+				{
+					"name": "Hello, user",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Hello, admin",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "auth controller",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"misha\",\r\n    \"password\": \"11112\",\r\n    \"userRoles\": [\"EXECUTOR\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/auth/register",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"login\": \"andrey\",\r\n    \"password\": \"11112\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get access token",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZXkiLCJleHAiOjE3MTAyNzk4ODMsInJvbGVzIjpbIkFETUlOIl0sInVzZXJuYW1lIjoiYW5kcmV5In0.JOmoXbX7lT5VoOnnCxGct1aSsY3pDG6atiiAo2zJEIdcQtZi3vEmpCWD_Km0H8y1Hu-DVn3gSMz8oAxMWws9MA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"refreshToken\": \"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZXkiLCJleHAiOjE3MTI2OTE4ODN9.jUpNrfDLBSU1WZ10ofbHmpis4iLeEVsMOcoc9EMk8HvwUckUE9N087jAxWtkNxWEdwhosZ6gfHnN2IOZNISjLA\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/auth/access_token",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"auth",
+								"access_token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get refresh token",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZXkiLCJleHAiOjE3MTAyNzk5ODcsInJvbGVzIjpbIkFETUlOIl0sInVzZXJuYW1lIjoiYW5kcmV5In0.HxozYwwAIN3nLKoAhojbJ87Qdlo9kAY65tDFr-hSR0UFqtCub99ZKgaXDOC8V53cWb3Wt7KisATegoSe0uv5dg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"refresh_token\": \"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZXkiLCJleHAiOjE3MTI2OTE4ODN9.jUpNrfDLBSU1WZ10ofbHmpis4iLeEVsMOcoc9EMk8HvwUckUE9N087jAxWtkNxWEdwhosZ6gfHnN2IOZNISjLA\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/auth/refresh_token",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"auth",
+								"refresh_token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "executor controller",
+			"item": [
+				{
+					"name": "Get task by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/executor/tasks/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"executor",
+								"tasks",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mark task as complete",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/executor/tasks/3/mark-as-complete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"executor",
+								"tasks",
+								"3",
+								"mark-as-complete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all executor's tasks",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/executor/tasks/get-all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"executor",
+								"tasks",
+								"get-all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mark task as incomplete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwZXRpYSIsImV4cCI6MTcxMDQ1MTM2NSwicm9sZXMiOlsiRVhFQ1VUT1IiXSwidXNlcm5hbWUiOiJwZXRpYSJ9.3tCG19ZhA_rBtFRrK_Rtvy_E8ctqPxJNvlHw7kFz4gdRu6RXZ31jsWNY3kSOdZoTbFkLG6n93gQuNBicLmEkfw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/executor/tasks/3/mark-as-incomplete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"executor",
+								"tasks",
+								"3",
+								"mark-as-incomplete"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "issuer controller",
+			"item": [
+				{
+					"name": "Create task",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZXkiLCJleHAiOjE3MTAzNzk0MTMsInJvbGVzIjpbIklTU1VFUiJdLCJ1c2VybmFtZSI6ImFuZHJleSJ9.lV1teHzQ409X0wqw4KBqKYU5zKYs2Zs5rgvnXgIPX2D947ILQdqRTMa8eF4R36A1t_YIjjQlBWTVMJMrIPxcUw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"First task\",\r\n    \"description\": \"All of i want, that it is working\",\r\n    \"executorName\": \"petia\",\r\n    \"completed\": \"false\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/issuer/create-task",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"issuer",
+								"create-task"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get task by id",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get all tasks",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/issuer/tasks/get-all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"issuer",
+								"tasks",
+								"get-all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete task by id",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
