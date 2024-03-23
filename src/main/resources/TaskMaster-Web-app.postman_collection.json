@@ -10,18 +10,64 @@
 			"name": "hello controller",
 			"item": [
 				{
-					"name": "Hello, user",
+					"name": "Hello, executor",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZXkiLCJleHAiOjE3MTAyODAzNTUsInJvbGVzIjpbIkFETUlOIl0sInVzZXJuYW1lIjoiYW5kcmV5In0.HCsOUVVxcHRSku3lNNpvMyhSEtJI5p61_LYatIrU1YcTC5SpgebmPl02DvwbI0AUbp5Jl6riEh7_S7JlVLH-vQ",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/hello/executor",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"hello",
+								"executor"
+							]
+						}
 					},
 					"response": []
 				},
 				{
-					"name": "Hello, admin",
+					"name": "Hello, issuer",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZXkiLCJleHAiOjE3MTAyODAzODksInJvbGVzIjpbIkFETUlOIl0sInVzZXJuYW1lIjoiYW5kcmV5In0.zGrWPTx-3IREt34hT-Z6rcTf46MLnwJ0R0BBHL_i6l-jbakmfeS9ci2EWHabcK1YYysl_o_K4TMOu9SUA8SGQQ",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/hello/issuer",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"hello",
+								"issuer"
+							]
+						}
 					},
 					"response": []
 				}
@@ -175,6 +221,16 @@
 				{
 					"name": "Get task by id",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJleGVjdXRvcjIiLCJleHAiOjE3MTA5NzY3NzksInJvbGVzIjpbIklTU1VFUiIsIkVYRUNVVE9SIl0sInVzZXJuYW1lIjoiZXhlY3V0b3IyIn0.kZw3ck0TKORrTbrdOwv0CuDaMU893Y2Kq59RYvERHvvtYj6N5tJQrVtPHsZ8sORD16ovfmwkO4biH61nuitcjw",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -196,10 +252,20 @@
 				{
 					"name": "Mark task as complete",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJleGVjdXRvcjMiLCJleHAiOjE3MTA0NTE1NzQsInJvbGVzIjpbIkVYRUNVVE9SIl0sInVzZXJuYW1lIjoiZXhlY3V0b3IzIn0.QXfdapfy30O0qNj3Qlg9ieEDB5sDyprNc1ytt_4qTEeyqX1khBcYqHJL6hSFlWrh6GOWTyPTdOOGE6EKPaEOzw",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/executor/tasks/3/mark-as-complete",
+							"raw": "http://localhost:8080/api/executor/tasks/1/mark-as-complete",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -209,7 +275,7 @@
 								"api",
 								"executor",
 								"tasks",
-								"3",
+								"1",
 								"mark-as-complete"
 							]
 						}
@@ -246,7 +312,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwZXRpYSIsImV4cCI6MTcxMDQ1MTM2NSwicm9sZXMiOlsiRVhFQ1VUT1IiXSwidXNlcm5hbWUiOiJwZXRpYSJ9.3tCG19ZhA_rBtFRrK_Rtvy_E8ctqPxJNvlHw7kFz4gdRu6RXZ31jsWNY3kSOdZoTbFkLG6n93gQuNBicLmEkfw",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJleGVjdXRvcjMiLCJleHAiOjE3MTA0NTE1NzQsInJvbGVzIjpbIkVYRUNVVE9SIl0sInVzZXJuYW1lIjoiZXhlY3V0b3IzIn0.QXfdapfy30O0qNj3Qlg9ieEDB5sDyprNc1ytt_4qTEeyqX1khBcYqHJL6hSFlWrh6GOWTyPTdOOGE6EKPaEOzw",
 									"type": "string"
 								}
 							]
@@ -254,7 +320,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/executor/tasks/3/mark-as-incomplete",
+							"raw": "http://localhost:8080/api/executor/tasks/1/mark-as-incomplete",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -264,7 +330,7 @@
 								"api",
 								"executor",
 								"tasks",
-								"3",
+								"1",
 								"mark-as-incomplete"
 							]
 						}
@@ -284,7 +350,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZXkiLCJleHAiOjE3MTAzNzk0MTMsInJvbGVzIjpbIklTU1VFUiJdLCJ1c2VybmFtZSI6ImFuZHJleSJ9.lV1teHzQ409X0wqw4KBqKYU5zKYs2Zs5rgvnXgIPX2D947ILQdqRTMa8eF4R36A1t_YIjjQlBWTVMJMrIPxcUw",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZXkiLCJleHAiOjE3MTEzMjc2MTAsInJvbGVzIjpbIklTU1VFUiJdLCJ1c2VybmFtZSI6ImFuZHJleSJ9.uqo4FGAkN-PWMDZ0QZywAreXeZb-TheExtGqYyUZ2E83iHe1TYWh5qwfI2IA1eyOX36K4L-WpfDkS0jpirGxUA",
 									"type": "string"
 								}
 							]
@@ -293,7 +359,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"First task\",\r\n    \"description\": \"All of i want, that it is working\",\r\n    \"executorName\": \"petia\",\r\n    \"completed\": \"false\"\r\n}",
+							"raw": "{\r\n    \"title\": \"task for misha\",\r\n    \"description\": \"description of task\",\r\n    \"executorName\": \"misha\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -318,8 +384,32 @@
 				{
 					"name": "Get task by id",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZXkiLCJleHAiOjE3MTAzODA1OTMsInJvbGVzIjpbIklTU1VFUiJdLCJ1c2VybmFtZSI6ImFuZHJleSJ9.D90j86KN5IwEnV9_FkEs7FYB9MRiZG_D3L3nT2z_DnvXdamA8YMSg52B_l5hmqsyTawvtcGyJH2V8vZP96nQ6Q",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/issuer/tasks/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"issuer",
+								"tasks",
+								"1"
+							]
+						}
 					},
 					"response": []
 				},
@@ -348,8 +438,33 @@
 				{
 					"name": "Delete task by id",
 					"request": {
-						"method": "GET",
-						"header": []
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmRyZXkiLCJleHAiOjE3MTA0NTIxODQsInJvbGVzIjpbIklTU1VFUiJdLCJ1c2VybmFtZSI6ImFuZHJleSJ9.24P_wdDMoJwwf9nth87pWIfTglfgEKFhXc_O1WivCwqOkiki2CyVmfjzuUwn7knq3t7MNIOo0F5bmMojrSkq4w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/issuer/tasks/1/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"issuer",
+								"tasks",
+								"1",
+								"delete"
+							]
+						}
 					},
 					"response": []
 				}

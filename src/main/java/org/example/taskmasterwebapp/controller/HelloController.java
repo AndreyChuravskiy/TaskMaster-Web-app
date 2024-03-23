@@ -18,18 +18,18 @@ import org.springframework.web.bind.annotation.RestController;
 public class HelloController {
 
     private final AuthService authService;
-    @PreAuthorize("hasAuthority('ADMIN')")
-    @GetMapping("admin")
-    public ResponseEntity<String> helloAdmin() {
+    @PreAuthorize("hasAuthority('EXECUTOR')")
+    @GetMapping("executor")
+    public ResponseEntity<String> helloExecutor() {
         String name = (String)authService.getAuthInfo().getPrincipal();
-        return ResponseEntity.ok("hello, admin " + name);
+        return ResponseEntity.ok("hello, executor " + name);
     }
 
-    @PreAuthorize("hasAuthority('USER')")
-    @GetMapping("user")
-    public ResponseEntity<String> helloUser() {
+    @PreAuthorize("hasAuthority('ISSUER')")
+    @GetMapping("issuer")
+    public ResponseEntity<String> helloIssuer() {
         String name = (String)authService.getAuthInfo().getPrincipal();
-        return ResponseEntity.ok("hello, user " + name);
+        return ResponseEntity.ok("hello, issuer " + name);
     }
 
 }
